@@ -1,6 +1,10 @@
 #include <stdlib.h>
 #include "vm.h"
 
+insexec instructions[] = {
+    // TODO
+};
+
 vm * createVM(int numRegisters, int memorySize) {
     vm *vm = malloc(sizeof(vm));
     vm->numRegisters = numRegisters;
@@ -19,6 +23,6 @@ void destroyVM(vm *vm) {
 void exec(vm *vm, byte *code) {
     byte opcode;
     while(opcode = *(code++)) {
-        // TODO
+        code = instructions[opcode](vm, code);
     }
 }
