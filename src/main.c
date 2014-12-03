@@ -3,6 +3,10 @@
 
 byte sampleProgram[] = {
     // TODO
+    0x01, 0x03, 0xED, // i8load !!3 ?ED
+    0x01, 0x01, 0xAA, // i8load !!1 ?AA
+    0x01, 0x04, 0xAA, // i8load !!4 ?AA
+    0x00              // halt
 };
 
 int main(int argc, char **argv) {
@@ -11,6 +15,12 @@ int main(int argc, char **argv) {
 
     // Run a simple program
     exec(vm, sampleProgram);
+
+    // Print the resultant state of the machine's registers
+    for(int i = 0; i < vm->numRegisters; ++i) {
+        printf("%d ", vm->registers[i]);
+    }
+    printf("\n");
 
     // Free the machine's memory and registers
     destroyVM(vm);

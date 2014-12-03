@@ -12,10 +12,6 @@ typedef struct {
     byte *memory;
 } vm;
 
-typedef byte *(*insexec)(vm *vm, byte *code);
-
-extern insexec instructions[];
-
 vm * createVM(int numRegisters, int memorySize);
 void destroyVM(vm *vm);
 

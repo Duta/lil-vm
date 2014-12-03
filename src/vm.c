@@ -1,9 +1,6 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include "vm.h"
-
-insexec instructions[] = {
-    // TODO
-};
 
 vm * createVM(int numRegisters, int memorySize) {
     vm *vm = malloc(sizeof(vm));
@@ -23,6 +20,13 @@ void destroyVM(vm *vm) {
 void exec(vm *vm, byte *code) {
     byte opcode;
     while(opcode = *(code++)) {
-        code = instructions[opcode](vm, code);
+        switch(opcode) {
+        case 0x01: { // i8load register value
+            byte reg = *(code++);
+            byte val = *(code++);
+            printf("i8load !!%d ?%02X\n", reg, val);
+            vm->registers[reg] = val;
+            } break;
+        }
     }
 }
