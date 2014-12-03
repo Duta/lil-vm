@@ -28,15 +28,23 @@ void exec(vm *vm, byte *code) {
         INSTRUCTION_START(01) // i8load register value
             byte reg = *(code++);
             byte val = *(code++);
-            printf("i8load !!%d ?%02X\n", reg, val);
+            printf("i8load\t!!%02X\t?%02X\n", reg, val);
             vm->registers[reg] = val;
         INSTRUCTION_END
 
         INSTRUCTION_START(02) // i8mov dest source
             byte dest = *(code++);
             byte src  = *(code++);
-            printf("i8mov !!%d !!%d\n", dest, src);
+            printf("i8mov\t!!%02X\t!!%02X\n", dest, src);
             vm->registers[dest] = vm->registers[src];
+        INSTRUCTION_END
+
+        INSTRUCTION_START(03) // i8mov dest reg1 reg2
+            byte dest = *(code++);
+            byte x    = *(code++);
+            byte y    = *(code++);
+            printf("i8add\t!!%02X\t!!%02X\t!!%02X\n", dest, x, y);
+            vm->registers[dest] = vm->registers[x] + vm->registers[y];
         INSTRUCTION_END
 
         }
