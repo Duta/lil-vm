@@ -21,12 +21,24 @@ void exec(vm *vm, byte *code) {
     byte opcode;
     while(opcode = *(code++)) {
         switch(opcode) {
-        case 0x01: { // i8load register value
+
+#define INSTRUCTION_START(opcode) case 0x##opcode: {
+#define INSTRUCTION_END } break;
+
+        INSTRUCTION_START(01) // i8load register value
             byte reg = *(code++);
             byte val = *(code++);
             printf("i8load !!%d ?%02X\n", reg, val);
             vm->registers[reg] = val;
-            } break;
+        INSTRUCTION_END
+
+        INSTRUCTION_START(02) // i8mov dest source
+            byte dest = *(code++);
+            byte src  = *(code++);
+            printf("i8mov !!%d !!%d\n", dest, src);
+            vm->registers[dest] = vm->registers[src];
+        INSTRUCTION_END
+
         }
     }
 }
