@@ -47,6 +47,14 @@ void exec(vm *vm, byte *code) {
             vm->registers[dest] = vm->registers[x] + vm->registers[y];
         INSTRUCTION_END
 
+        INSTRUCTION_START(03) // i8sub dest reg1 reg2
+            byte dest = *(code++);
+            byte x    = *(code++);
+            byte y    = *(code++);
+            printf("i8sub\t!!%02X\t!!%02X\t!!%02X\n", dest, x, y);
+            vm->registers[dest] = vm->registers[x] - vm->registers[y];
+        INSTRUCTION_END
+
         }
     }
 }
