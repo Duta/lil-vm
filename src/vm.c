@@ -39,7 +39,7 @@ void exec(vm *vm, byte *code) {
             vm->registers[dest] = vm->registers[src];
         INSTRUCTION_END
 
-        INSTRUCTION_START(03) // i8mov dest reg1 reg2
+        INSTRUCTION_START(03) // i8add dest reg1 reg2
             byte dest = *(code++);
             byte x    = *(code++);
             byte y    = *(code++);
