@@ -17,4 +17,6 @@ void destroyVM(vm *vm);
 
 void exec(vm *vm, byte *code);
 
+void printInfo(vm *vm);
+
 #endif

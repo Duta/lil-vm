@@ -19,7 +19,9 @@ void destroyVM(vm *vm) {
 
 void exec(vm *vm, byte *code) {
     byte opcode;
+    byte *start = code;
     while(opcode = *(code++)) {
+        printInfo(vm);
         switch(opcode) {
 
 #define INSTRUCTION_START(opcode) case 0x##opcode: {
@@ -47,7 +49,7 @@ void exec(vm *vm, byte *code) {
             vm->registers[dest] = vm->registers[x] + vm->registers[y];
         INSTRUCTION_END
 
-        INSTRUCTION_START(03) // i8sub dest reg1 reg2
+        INSTRUCTION_START(04) // i8sub dest reg1 reg2
             byte dest = *(code++);
             byte x    = *(code++);
             byte y    = *(code++);
@@ -55,6 +57,20 @@ void exec(vm *vm, byte *code) {
             vm->registers[dest] = vm->registers[x] - vm->registers[y];
         INSTRUCTION_END
 
+        INSTRUCTION_START(05) // jmp dest
+            byte dest = *(code++);
+            printf("jmp\t?%02X\n", dest);
+            code = start + dest;
+        INSTRUCTION_END
+
         }
     }
+}
+
+void printInfo(vm *vm) {
+    printf("\n");
+    for(int i = 0; i < vm->numRegisters; ++i) {
+        printf("%d ", vm->registers[i]);
+    }
+    printf("\n\n");
 }

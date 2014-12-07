@@ -2,6 +2,7 @@
 #include "vm.h"
 
 byte sampleProgram[] = {
+    /*
     // TODO
     0x01, 0x03, 0xED, // i8load !!3 ?ED
     0x01, 0x01, 0xAA, // i8load !!1 ?AA
@@ -9,6 +10,12 @@ byte sampleProgram[] = {
     0x01, 0x04, 0x07, // i8load !!4 ?07
     0x03, 0x07, 0x03, 0x04, // i8add !!7 !!3 !!4
     0x00              // halt
+    */
+    0x01, 0x00, 0x00,       // i8load !!0 ?0
+    0x01, 0x01, 0x03,       // i8load !!1 ?3
+    0x03, 0x00, 0x00, 0x01, // i8add !!0 !!0 !!1
+    0x05, 0x06,             // jmp ?6
+    0x00                    // halt
 };
 
 int main(int argc, char **argv) {
@@ -19,11 +26,7 @@ int main(int argc, char **argv) {
     exec(vm, sampleProgram);
 
     // Print the resultant state of the machine's registers
-    printf("\n");
-    for(int i = 0; i < vm->numRegisters; ++i) {
-        printf("%d ", vm->registers[i]);
-    }
-    printf("\n\n");
+    printInfo(vm);
 
     // Free the machine's memory and registers
     destroyVM(vm);
