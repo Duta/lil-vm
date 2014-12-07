@@ -63,20 +63,52 @@ void exec(vm *vm, byte *code) {
             code = start + dest;
         INSTRUCTION_END
 
-        INSTRUCTION_START(06) // ife dest reg1 reg2
+        INSTRUCTION_START(06) // jeq dest reg1 reg2
             byte dest = *(code++);
             byte x    = vm->registers[*(code++)];
             byte y    = vm->registers[*(code++)];
-            printf("ife\t?%02X\t!!%02X\t!!%02X\n", dest, x, y);
+            printf("jeq\t?%02X\t!!%02X\t!!%02X\n", dest, x, y);
             if(x == y) code = start + dest;
         INSTRUCTION_END
 
-        INSTRUCTION_START(07) // ifn dest reg1 reg2
+        INSTRUCTION_START(07) // jne dest reg1 reg2
             byte dest = *(code++);
             byte x    = vm->registers[*(code++)];
             byte y    = vm->registers[*(code++)];
-            printf("ifn\t?%02X\t!!%02X\t!!%02X\n", dest, x, y);
+            printf("jne\t?%02X\t!!%02X\t!!%02X\n", dest, x, y);
             if(x != y) code = start + dest;
+        INSTRUCTION_END
+
+        INSTRUCTION_START(08) // jlt dest reg1 reg2
+            byte dest = *(code++);
+            byte x    = vm->registers[*(code++)];
+            byte y    = vm->registers[*(code++)];
+            printf("jlt\t?%02X\t!!%02X\t!!%02X\n", dest, x, y);
+            if(x < y) code = start + dest;
+        INSTRUCTION_END
+
+        INSTRUCTION_START(09) // jgt dest reg1 reg2
+            byte dest = *(code++);
+            byte x    = vm->registers[*(code++)];
+            byte y    = vm->registers[*(code++)];
+            printf("jgt\t?%02X\t!!%02X\t!!%02X\n", dest, x, y);
+            if(x > y) code = start + dest;
+        INSTRUCTION_END
+
+        INSTRUCTION_START(0A) // jle dest reg1 reg2
+            byte dest = *(code++);
+            byte x    = vm->registers[*(code++)];
+            byte y    = vm->registers[*(code++)];
+            printf("jle\t?%02X\t!!%02X\t!!%02X\n", dest, x, y);
+            if(x <= y) code = start + dest;
+        INSTRUCTION_END
+
+        INSTRUCTION_START(0B) // jge dest reg1 reg2
+            byte dest = *(code++);
+            byte x    = vm->registers[*(code++)];
+            byte y    = vm->registers[*(code++)];
+            printf("jge\t?%02X\t!!%02X\t!!%02X\n", dest, x, y);
+            if(x >= y) code = start + dest;
         INSTRUCTION_END
 
         }
