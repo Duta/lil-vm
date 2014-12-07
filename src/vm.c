@@ -63,6 +63,22 @@ void exec(vm *vm, byte *code) {
             code = start + dest;
         INSTRUCTION_END
 
+        INSTRUCTION_START(06) // ife dest reg1 reg2
+            byte dest = *(code++);
+            byte x    = vm->registers[*(code++)];
+            byte y    = vm->registers[*(code++)];
+            printf("ife\t?%02X\t!!%02X\t!!%02X\n", dest, x, y);
+            if(x == y) code = start + dest;
+        INSTRUCTION_END
+
+        INSTRUCTION_START(07) // ifn dest reg1 reg2
+            byte dest = *(code++);
+            byte x    = vm->registers[*(code++)];
+            byte y    = vm->registers[*(code++)];
+            printf("ifn\t?%02X\t!!%02X\t!!%02X\n", dest, x, y);
+            if(x != y) code = start + dest;
+        INSTRUCTION_END
+
         }
     }
 }
