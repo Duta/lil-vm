@@ -3,7 +3,7 @@
 #include "vm.h"
 
 vm * createVM(int numRegisters, int memorySize) {
-    vm *vm = malloc(sizeof(vm));
+    vm *vm = malloc(sizeof *vm);
     vm->numRegisters = numRegisters;
     vm->memorySize   = memorySize;
     vm->registers    = calloc(numRegisters, sizeof(byte));
@@ -110,15 +110,14 @@ void exec(vm *vm, byte *code) {
             printf("jge\t?%02X\t!!%02X\t!!%02X\n", dest, x, y);
             if(x >= y) code = start + dest;
         INSTRUCTION_END
-
+        
         }
     }
 }
 
 void printInfo(vm *vm) {
-    printf("\n");
     for(int i = 0; i < vm->numRegisters; ++i) {
         printf("%d ", vm->registers[i]);
     }
-    printf("\n\n");
+    printf("\n");
 }
