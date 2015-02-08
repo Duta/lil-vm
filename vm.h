@@ -6,13 +6,13 @@
 typedef uint8_t byte;
 
 typedef struct {
-    int numRegisters;
-    int memorySize;
+    size_t numRegisters;
+    size_t memorySize;
     byte *registers;
     byte *memory;
 } vm;
 
-vm * createVM(int numRegisters, int memorySize);
+vm * createVM(size_t numRegisters, size_t memorySize);
 void destroyVM(vm *vm);
 
 void exec(vm *vm, byte *code);
